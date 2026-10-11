@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الحجز | عيادتي</title>
+<style>
+:root {
+  --primary: #1565c0;
+  --primary-dark: #0d47a1;
+  --primary-light: #e3f2fd;
+  --text: #1a1a1a;
+  --text-muted: #666;
+  --bg: #f8fafc;
+  --white: #ffffff;
+  --border: #e0e0e0;
+  --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  --radius: 12px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, sans-serif; }
+body { background: var(--bg); color: var(--text); line-height: 1.6; }
+a { text-decoration: none; color: inherit; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+.navbar { background: var(--white); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+.nav-content { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; flex-wrap: wrap; gap: 12px; }
+.logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
+.navbar nav { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+.navbar nav a { color: var(--text); font-weight: 500; }
+.navbar nav a:hover { color: var(--primary); }
+.btn-login { background: var(--primary); color: var(--white) !important; padding: 8px 18px; border-radius: 8px; }
+
+.page-section { padding: 50px 20px 80px; }
+.page-title { font-size: 2.2rem; color: var(--primary-dark); text-align: center; margin-bottom: 35px; }
+.section-subtitle { font-size: 1.5rem; color: var(--primary-dark); margin: 40px 0 20px; border-right: 5px solid var(--primary); padding-right: 12px; }
+
+.btn { display: inline-block; padding: 12px 28px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; font-size: 1rem; transition: 0.25s; text-align: center; }
+.btn-primary { background: var(--primary); color: var(--white); }
+.btn-primary:hover { background: var(--primary-dark); }
+
+.form-card { background: var(--white); padding: 32px; border-radius: var(--radius); box-shadow: var(--shadow); max-width: 600px; margin: 0 auto; }
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; margin-bottom: 6px; font-weight: 500; }
+.form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 14px; border: 1px solid var(--border); border-radius: 8px; font-size: 1rem; outline: none; background: var(--white); }
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--primary); }
+.form-card .btn { margin-top: 10px; width: 100%; }
+
+.bookings-list { display: flex; flex-direction: column; gap: 12px; }
+.booking-item { background: var(--white); border-right: 4px solid var(--primary); padding: 16px 20px; border-radius: 8px; box-shadow: var(--shadow); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.booking-item .info strong { color: var(--primary-dark); }
+.booking-item .info span { color: var(--text-muted); font-size: 0.9rem; }
+.btn-cancel { background: #ffebee; color: #c62828; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+
+.footer { background: var(--primary-dark); color: var(--white); text-align: center; padding: 20px; margin-top: 50px; }
+
+.toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: var(--primary-dark); color: var(--white); padding: 14px 24px; border-radius: 8px; box-shadow: var(--shadow); z-index: 9999; transition: transform 0.3s ease; font-weight: 500; }
+.toast.show { transform: translateX(-50%) translateY(0); }
+.toast.success { background: #2e7d32; }
+.toast.error { background: #c62828; }
+
+@media (max-width: 768px) {
+  .nav-content { flex-direction: column; }
+  .navbar nav { justify-content: center; }
+  .page-title { font-size: 1.7rem; }
+  .form-card { padding: 24px 18px; }
+}
+</style>
+</head>
+<body>
+
+<header class="navbar">
+  <div class="container nav-content">
+    <a href="index.html" class="logo">🏥 عيادتي</a>
+    <nav>
+      <a href="index.html">الرئيسية</a>
+      <a href="services.html">الخدمات</a>
+      <a href="booking.html">الحجز</a>
+      <a href="contact.html">تواصل معنا</a>
+      <a href="about.html">من نحن</a>
+      <a href="login.html" class="btn-login">خروج</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-section">
+  <div class="container">
+    <h1 class="page-title">حجز موعد جديد</h1>
+
+    <form id="bookingForm" class="form-card">
+      <div class="form-group">
+        <label>الاسم الكامل</label>
+        <input type="text" id="patientName" placeholder="اكتب اسمك الكامل" required>
+      </div>
+      <div class="form-group">
+        <label>رقم الجوال</label>
+        <input type="tel" id="patientPhone" placeholder="+249 ..." required>
+      </div>
+      <div class="form-group">
+        <label>اختر الخدمة</label>
+        <select id="patientService" required></select>
+      </div>
+      <div class="form-group">
+        <label>التاريخ</label>
+        <input type="date" id="patientDate" required>
+      </div>
+      <div class="form-group">
+        <label>الوقت</label>
+        <select id="patientTime" required>
+          <option value="">اختر الوقت</option>
+          <option>09:00 ص</option>
+          <option>10:00 ص</option>
+          <option>11:00 ص</option>
+          <option>01:00 م</option>
+          <option>03:00 م</option>
+          <option>05:00 م</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">تأكيد الحجز</button>
+    </form>
+
+    <h2 class="section-subtitle">مواعيدي المحجوزة</h2>
+    <div id="bookingsList" class="bookings-list"></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>© 2026 عيادتي — جميع الحقوق محفوظة | مؤسسة الموقع: سارة بانقا</p>
+</footer>
+
+<!-- ⚙️ JavaScript مباشرة داخل الصفحة -->
+<script>
+/* ============ البيانات ============ */
+var services = [
+  { id: 1, name: "طب الأطفال",     icon: "👶", price: 30000, desc: "رعاية صحية شاملة للأطفال." },
+  { id: 2, name: "الباطنية",       icon: "🩺", price: 35000, desc: "تشخيص وعلاج الأمراض الباطنية." },
+  { id: 3, name: "طب الأسنان",     icon: "🦷", price: 40000, desc: "فحص وتنظيف وعلاج مشاكل الأسنان." },
+  { id: 4, name: "الجلدية",        icon: "✨", price: 45000, desc: "علاج مشاكل البشرة والشعر." },
+  { id: 5, name: "علاج حب الشباب", icon: "🧴", price: 50000, desc: "برامج علاجية لحب الشباب." },
+  { id: 6, name: "تقويم الأسنان",  icon: "😁", price: 75000, desc: "تركيب وتعديل تقويم الأسنان." }
+];
+
+var bookings = [];
+
+/* ============ أدوات ============ */
+function showToast(message, type) {
+  type = type || "success";
+  var toast = document.createElement("div");
+  toast.className = "toast " + type;
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(function() { toast.classList.add("show"); }, 50);
+  setTimeout(function() {
+    toast.classList.remove("show");
+    setTimeout(function() { toast.remove(); }, 300);
+  }, 2500);
+}
+
+function formatPrice(price) {
+  return price.toLocaleString("ar-EG") + " ج.س";
+}
+
+/* ============ تعبئة قائمة الخدمات ============ */
+var serviceSelect = document.getElementById("patientService");
+var bookingsList = document.getElementById("bookingsList");
+var form = document.getElementById("bookingForm");
+
+/* إضافة خيار افتراضي */
+serviceSelect.innerHTML = '<option value="">اختر الخدمة</option>';
+
+/* إضافة الخدمات */
+services.forEach(function(s) {
+  var option = document.createElement("option");
+  option.value = s.name;
+  option.textContent = s.icon + " " + s.name + " (" + formatPrice(s.price) + ")";
+  serviceSelect.appendChild(option);
+});
+
+/* ============ عرض الحجوزات ============ */
+function renderBookings() {
+  bookingsList.innerHTML = "";
+
+  if (bookings.length === 0) {
+    bookingsList.innerHTML = "<p style='text-align:center;color:#666;'>لا توجد حجوزات حالياً.</p>";
+    return;
+  }
+
+  bookings.forEach(function(b, index) {
+    var item = document.createElement("div");
+    item.className = "booking-item";
+    item.innerHTML =
+      '<div class="info">' +
+        '<strong>' + b.name + '</strong>' +
+        '<span> | ' + b.service + ' | 📅 ' + b.date + ' | ⏰ ' + b.time + '</span>' +
+      '</div>' +
+      '<button class="btn-cancel" data-index="' + index + '">إلغاء</button>';
+    bookingsList.appendChild(item);
+  });
+
+  document.querySelectorAll(".btn-cancel").forEach(function(btn) {
+    btn.addEventListener("click", function(e) {
+      var idx = e.target.dataset.index;
+      bookings.splice(idx, 1);
+      renderBookings();
+      showToast("تم إلغاء الحجز", "error");
+    });
+  });
+}
+
+/* ============ إرسال النموذج ============ */
+form.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  var booking = {
+    name: document.getElementById("patientName").value.trim(),
+    phone: document.getElementById("patientPhone").value.trim(),
+    service: serviceSelect.value,
+    date: document.getElementById("patientDate").value,
+    time: document.getElementById("patientTime").value
+  };
+
+  if (!booking.name || !booking.phone || !booking.service || !booking.date || !booking.time) {
+    showToast("يرجى تعبئة جميع الحقول", "error");
+    return;
+  }
+
+  bookings.push(booking);
+  renderBookings();
+  form.reset();
+  showToast("تم الحجز بنجاح ✅");
+});
+
+/* تشغيل أول مرة */
+renderBookings();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الخدمات | عيادتي</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="logo">🏥 عيادتي</a>
+      <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="services.html">الخدمات</a>
+        <a href="booking.html">الحجز</a>
+        <a href="about.html">من نحن</a>
+        <a href="contact.html">تواصل معنا</a>
+        <a href="login.html" class="btn-login">تسجيل الدخول</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-section">
+    <div class="container">
+      <h1 class="page-title">خدماتنا الطبية</h1>
+
+      <!-- شريط البحث -->
+      <div class="search-bar">
+        <input type="text" id="serviceSearch" placeholder="ابحث عن خدمة...">
+        <select id="serviceFilter">
+          <option value="all">كل الأقسام</option>
+          <option value="أسنان">أسنان</option>
+          <option value="جلدية">جلدية</option>
+          <option value="باطنية">باطنية</option>
+          <option value="أطفال">أطفال</option>
+        </select>
+      </div>
+
+      <!-- شبكة الخدمات -->
+      <div class="cards-grid" id="servicesGrid"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2026 عيادتي — جميع الحقوق محفوظة</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

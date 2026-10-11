@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تواصل معنا | عيادتي</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="logo">🏥 عيادتي</a>
+      <nav>
+        <a href="index.html">الرئيسية</a>
+        <a href="services.html">الخدمات</a>
+        <a href="booking.html">الحجز</a>
+        <a href="about.html">من نحن</a>
+        <a href="contact.html">تواصل معنا</a>
+        <a href="login.html" class="btn-login">تسجيل الدخول</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="page-section">
+    <div class="container">
+      <h1 class="page-title">تواصل معنا</h1>
+      <p class="about-text">
+        نسعد بتواصلك معنا في أي وقت، فريقنا جاهز للإجابة على استفساراتك
+        ومساعدتك في حجز موعدك.
+      </p>
+
+      <!-- نموذج التواصل -->
+      <form id="contactForm" class="form-card">
+        <div class="form-group">
+          <label>الاسم</label>
+          <input type="text" id="contactName" placeholder="اكتب اسمك الكامل" required>
+        </div>
+        <div class="form-group">
+          <label>البريد الإلكتروني</label>
+          <input type="email" id="contactEmail" placeholder="example@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>رقم الجوال</label>
+          <input type="tel" id="contactPhone" placeholder="+249 ..." required>
+        </div>
+        <div class="form-group">
+          <label>الرسالة</label>
+          <textarea id="contactMessage" rows="5" placeholder="اكتب رسالتك هنا..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">إرسال الرسالة</button>
+      </form>
+
+      <!-- بطاقات معلومات التواصل -->
+      <h2 class="section-subtitle">معلومات التواصل</h2>
+      <div class="contact-cards">
+        <div class="contact-card">
+          <span class="contact-icon">📍</span>
+          <h3>العنوان</h3>
+          <p>المناقل - دار نايل</p>
+        </div>
+
+        <div class="contact-card">
+          <span class="contact-icon">📞</span>
+          <h3>رقم الجوال</h3>
+          <p dir="ltr">+249 12 625 4744</p>
+          <a href="tel:+249126254744" class="btn btn-outline btn-small">اتصل الآن</a>
+        </div>
+
+        <div class="contact-card">
+          <span class="contact-icon">✉️</span>
+          <h3>البريد الإلكتروني</h3>
+          <p dir="ltr" style="font-size:0.85rem;">sarahbanagah4@gmail.com</p>
+          <a href="mailto:sarahbanagah4@gmail.com" class="btn btn-outline btn-small">أرسل بريداً</a>
+        </div>
+
+        <div class="contact-card">
+          <span class="contact-icon">👩‍💼</span>
+          <h3>مؤسسة الموقع</h3>
+          <p>سارة بانقا</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>© 2026 عيادتي — جميع الحقوق محفوظة | مؤسسة الموقع: سارة بانقا</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
